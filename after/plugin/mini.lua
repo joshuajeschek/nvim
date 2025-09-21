@@ -26,14 +26,14 @@ local starter_items = {
 table.insert(starter_items, starter.sections.recent_files(5, true))
 
 -- doesn't work right now, whatever
-for _, dir in pairs(require('project_nvim').get_recent_projects()) do
-  local name = dir:match('[^/]*$') .. ' (' .. dir:gsub(home, '~') .. ')'
-  table.insert(starter_items, {
-    name = name,
-    action = 'cd ' .. dir .. ' | lua MiniStarter.refresh()',
-    section = 'Recent projects'
-  })
-end
+-- for _, dir in pairs(require('project_nvim').get_recent_projects()) do
+--   local name = dir:match('[^/]*$') .. ' (' .. dir:gsub(home, '~') .. ')'
+--   table.insert(starter_items, {
+--     name = name,
+--     action = 'cd ' .. dir .. ' | lua MiniStarter.refresh()',
+--     section = 'Recent projects'
+--   })
+-- end
 
 table.insert(starter_items, {
   name = 'Lazy',
