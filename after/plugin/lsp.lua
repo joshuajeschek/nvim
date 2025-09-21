@@ -22,16 +22,17 @@ lspsaga.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+lspconfig.clangd.setup {capabilities = capabilities}
 lspconfig.hls.setup {capabilities = capabilities}
 lspconfig.texlab.setup {capabilities = capabilities}
-lspconfig.ccls.setup {capabilities = capabilities}
+-- lspconfig.ccls.setup {capabilities = capabilities}
 lspconfig.prismals.setup {capabilities = capabilities}
 lspconfig.jsonls.setup {capabilities = capabilities}
 lspconfig.csharp_ls.setup {capabilities = capabilities}
 lspconfig.ts_ls.setup {capabilities = capabilities}
 -- lspconfig.svelte.setup {capabilities = capabilities}
 lspconfig.biome.setup {capabilities = capabilities}
-lspconfig.ruff_lsp.setup {capabilities = capabilities}
+lspconfig.ruff.setup {capabilities = capabilities}
 -- lspconfig.pyright.setup {capabilities = capabilities}
 lspconfig.jedi_language_server.setup {capabilities = capabilities}
 

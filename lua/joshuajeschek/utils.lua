@@ -26,7 +26,7 @@ local function find_dotfiles()
   else
     table.insert(dotfiles, '~')
   end
-  require('telescope.builtin').find_files({ hidden=true, search_dirs=dotfiles })
+  require('telescope.builtin').find_files{ hidden=true, search_dirs=dotfiles }
 end
 
 local function in_git_repo()
@@ -41,7 +41,7 @@ end
 local function git_find()
   print('running git find')
   if in_git_repo() then
-    return require('telescope.builtin').git_files()
+    return require('telescope.builtin').git_files{ recurse_submodules=true }
   end
   return require('telescope.builtin').find_files()
 end
