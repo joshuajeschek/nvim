@@ -74,7 +74,7 @@ require('lspconfig').yamlls.setup {
 }
 
 -- key bindings
-nnoremap('<C-CR>', '<cmd>Lspsaga finder<CR>', {silent = true})
+nnoremap('<C-CR>', '<cmd>Lspsaga goto_definition<CR>', {silent = true})
 nnoremap('<leader>ca', '<cmd>Lspsaga code_action<CR>', {silent = true})
 nnoremap('<leader>rn', '<cmd>Lspsaga rename<CR>', {silent = true})
 nnoremap('<leader>dn', '<cmd>Lspsaga diagnostic_jump_next<CR>', {silent = true})
