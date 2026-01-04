@@ -9,6 +9,51 @@ end
 
 lspkind.symbol_map['Tabnine'] = 'ﮧ'
 
+-- typst hayagriva citing autocomplete (expect file at bibliography.yaml in cwd)
+local hayagriva = {}
+
+function hayagriva:complete(params, callback)
+  local items = {}
+
+  local bib_file = vim.fn.getcwd() .. "/bibliography.yaml"
+  local bib_exists = vim.fn.filereadable(bib_file) == 1
+
+  local filetype = params.context.filetype
+  local is_typst_file = filetype == "typst" or filetype == "typ"
+
+  local cursor_before_line = params.context.cursor_before_line
+
+  if cursor_before_line:sub(1, 1) == "@" and is_typst_file and bib_exists then
+
+    local home = os.getenv("HOME")
+    local csl_file = home .. "/.config/nvim/assets/apa-with-citation-keys.csl"
+    local cmd = "hayagriva " .. vim.fn.shellescape(bib_file) .. " reference --no-fmt --csl " .. vim.fn.shellescape(csl_file)
+    local output = vim.fn.system(cmd)
+    local lines = vim.split(output, "\n")
+
+    for _, line in ipairs(lines) do
+      if line ~= "" then
+        -- key (first word) + rest (reference)
+        local key, reference = line:match("^(%S+)%s+(.+)$")
+        if key and reference then
+          table.insert(items, { label = "@" .. key, detail = reference, kind = 18, })
+        end
+      end
+    end
+
+  end
+
+  callback(items)
+end
+
+function hayagriva:get_trigger_characters()
+  return { "@" }
+end
+
+-- Don't forget to register your new source to cmp.
+cmp.register_source("hayagriva", hayagriva)
+
+
 -- general autocompletion setup
 require('luasnip.loaders.from_vscode').lazy_load()
 cmp.setup ({
@@ -22,6 +67,7 @@ cmp.setup ({
     { name = 'cmp_tabnine' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'hayagriva' },
   },
   mapping = {
     ['<Tab>'] = cmp.mapping(function(fallback)
@@ -112,4 +158,3 @@ require('luasnip.loaders.from_vscode').lazy_load({
   include = nil, -- Load all languages
   exclude = {},
 })
-

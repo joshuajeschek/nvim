@@ -36,6 +36,10 @@ lspconfig.ruff.setup {capabilities = capabilities}
 -- lspconfig.pyright.setup {capabilities = capabilities}
 lspconfig.jedi_language_server.setup {capabilities = capabilities}
 
+lspconfig.tinymist.setup{
+  single_file_support = true,
+}
+
 lspconfig.lua_ls.setup {
   capabilities = capabilities,
   -- settings for nvim configs
@@ -75,6 +79,7 @@ require('lspconfig').yamlls.setup {
 
 -- key bindings
 nnoremap('<C-CR>', '<cmd>Lspsaga goto_definition<CR>', {silent = true})
+nnoremap('<C-space>', '<cmd>Lspsaga finder<CR>', {silent = true})
 nnoremap('<leader>ca', '<cmd>Lspsaga code_action<CR>', {silent = true})
 nnoremap('<leader>rn', '<cmd>Lspsaga rename<CR>', {silent = true})
 nnoremap('<leader>dn', '<cmd>Lspsaga diagnostic_jump_next<CR>', {silent = true})
